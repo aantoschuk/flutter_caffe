@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:caffe/cubit/items/items_cubit.dart';
 import 'package:caffe/cubit/filters/filters_cubit.dart';
 
-import 'package:caffe/features/main/sort_options/bottom_border.dart';
+import 'package:caffe/widgets/bottom_border.dart';
 import 'package:caffe/features/main/sort_options/modal_title_text.dart';
 
 import 'package:caffe/theme/icons.dart';

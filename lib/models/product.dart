@@ -1,11 +1,12 @@
 class Product {
   final String id;
+  final int price;
   final String name;
   final String type;
   final String image;
-  final List<String>? allergenes;
   final int weight;
-  final int price;
+  final String description;
+  final List<String>? allergenes;
 
   const Product(
       {required this.id,
@@ -14,6 +15,7 @@ class Product {
       required this.image,
       required this.weight,
       required this.price,
+      required this.description,
       this.allergenes = const []});
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class Product {
       name: json['name'] as String,
       type: json['type'] as String,
       image: json['image'] as String,
+      description: json['description'] as String,
       allergenes: json['allergens'] != null
           ? json['allergens'] as List<String>
           : json['allergens'] as Null,
