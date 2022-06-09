@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:caffe/features/main/sort_options/bottom_border.dart';
+import 'package:caffe/widgets/bottom_border.dart';
 
 import 'package:caffe/theme/fonts.dart';
 
