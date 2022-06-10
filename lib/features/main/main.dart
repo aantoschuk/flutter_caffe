@@ -1,3 +1,4 @@
+import 'package:caffe/widgets/topbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,30 +27,33 @@ class Products extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ItemsCubit, ItemsState>(builder: (context, state) {
-      if (state is ItemsLoading) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      if (state is ItemsLoaded) {
-        return Column(children: [
-          const ItemOptions(),
-          const SortOptions(),
-          state.filteredItems.isEmpty
-              ? const Expanded(
-                  child: Center(
-                    child: Text('Wow, such empty'),
-                  ),
-                )
-              : Expanded(child: ItemGrid(items: state.filteredItems)),
-          const BottomNavigation()
-        ]);
-      } else {
-        return const Center(
-          child: Text('Something went wrong'),
-        );
-      }
-    });
+    return Scaffold(
+      appBar: const Topbar(),
+      body: BlocBuilder<ItemsCubit, ItemsState>(builder: (context, state) {
+        if (state is ItemsLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is ItemsLoaded) {
+          return Column(children: [
+            const ItemOptions(),
+            const SortOptions(),
+            state.filteredItems.isEmpty
+                ? const Expanded(
+                    child: Center(
+                      child: Text('Wow, such empty'),
+                    ),
+                  )
+                : Expanded(child: ItemGrid(items: state.filteredItems)),
+            const BottomNavigation()
+          ]);
+        } else {
+          return const Center(
+            child: Text('Something went wrong'),
+          );
+        }
+      }),
+    );
   }
 }

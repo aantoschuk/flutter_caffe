@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'package:caffe/utils/service/routes.dart';
+
 import 'package:caffe/theme/icons.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -15,6 +17,7 @@ class _BottomNavigation extends State<BottomNavigation> {
 
   void _onTap(int index) {
     setState(() {
+      Navigator.pushNamed(context, Routes.orders);
       selectedIndex = index;
     });
   }

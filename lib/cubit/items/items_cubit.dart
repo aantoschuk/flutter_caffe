@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:caffe/models/models.dart';
-import 'package:caffe/helpers/helpers.dart';
-import 'package:caffe/utils/service/repository.dart';
 import 'package:caffe/cubit/filters/filters_cubit.dart';
+
+import 'package:caffe/models/models.dart';
+
+import 'package:caffe/utils/helpers/helpers.dart';
+import 'package:caffe/utils/service/repository.dart';
 
 part 'items_state.dart';
 
