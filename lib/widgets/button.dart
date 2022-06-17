@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  final onTap;
+  final Function onTap;
+  final Color backgroundColor;
+  final Color foregroundColor;
   final String text;
-  const Button({Key? key, required this.onTap, required this.text})
-      : super(key: key);
+  const Button({
+    Key? key,
+    required this.onTap,
+    required this.text,
+    this.backgroundColor = Colors.black,
+    this.foregroundColor = Colors.white,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onTap,
+      onPressed: () => onTap,
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
           const RoundedRectangleBorder(
@@ -18,8 +25,8 @@ class Button extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: MaterialStateProperty.all(Colors.black),
-        foregroundColor: MaterialStateProperty.all(Colors.white),
+        backgroundColor: MaterialStateProperty.all(backgroundColor),
+        foregroundColor: MaterialStateProperty.all(foregroundColor),
       ),
       child: Text(text),
     );

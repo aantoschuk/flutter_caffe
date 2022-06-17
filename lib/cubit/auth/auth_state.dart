@@ -8,9 +8,7 @@ abstract class AuthState extends Equatable {
 }
 
 class AuthInitial extends AuthState {
-  final String token;
-
-  const AuthInitial({this.token = ''});
+  final String token = '';
 
   @override
   List<Object> get props => [token];

@@ -17,7 +17,7 @@ class _BottomNavigation extends State<BottomNavigation> {
 
   void _onTap(int index) {
     setState(() {
-      Navigator.pushNamed(context, Routes.orders);
+      Navigator.pushReplacementNamed(context, Routes.orders);
       selectedIndex = index;
     });
   }
