@@ -12,3 +12,7 @@ List<Product> filterProducts(List<Product> items, List<String> filters) {
 
   return filteredItems;
 }
+
+bool emailValidation(String email) => RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+    .hasMatch(email);

@@ -2,7 +2,9 @@ class GetRequest {
   static const getProducts = 'products';
 }
 
-class PostRequest {}
+class PostRequest {
+  static const login = 'auth/login';
+}
 
 class PutchRequest {}
 
@@ -12,4 +14,9 @@ class RequestTypes {
   static const String get = 'get';
   static const String post = 'post';
   static const String delete = 'delete';
+}
+
+enum RequestType {
+  get,
+  post,
 }

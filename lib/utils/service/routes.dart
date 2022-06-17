@@ -15,11 +15,11 @@ class Routes {
       '/': (context) => const MainPage(),
       '/login': (context) => const LoginPage(),
       '/orders': (context) {
-        final state = BlocProvider.of<AuthCubit>(context).state as AuthInitial;
+        final state = BlocProvider.of<AuthCubit>(context).state;
         if (state.token == '') {
-          return const BadPage();
+          return const LoginPage();
         }
-        return const LoginPage();
+        return const BadPage();
       }
     };
   }
