@@ -26,6 +26,8 @@ class LoginFormState extends State<LoginForm> {
   TextEditingController passwordEditingController = TextEditingController();
 
   void onSkiptap() => Navigator.pushReplacementNamed(context, Routes.initial);
+  void onRegisterTap() => Navigator.pushNamed(context, Routes.register);
+
   void submit() async {
     if (_formKey.currentState!.validate() && _isError == false) {
       ScaffoldMessenger.of(context)
@@ -112,7 +114,7 @@ class LoginFormState extends State<LoginForm> {
               children: [
                 const Text('Forgot Password?'),
                 GestureDetector(
-                  onTap: null,
+                  onTap: onRegisterTap,
                   child: const Text('Sign up'),
                 )
               ],
