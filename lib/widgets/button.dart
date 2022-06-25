@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  final Function onTap;
+  final Function? onTap;
   final Color backgroundColor;
   final Color foregroundColor;
   final String text;
