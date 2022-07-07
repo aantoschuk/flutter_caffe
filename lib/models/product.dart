@@ -27,6 +27,7 @@ class Product {
       description: json['description'] as String,
       allergenes: json['allergens'] != null
           ? json['allergens'] as List<String>
+          // ignore: prefer_void_to_null
           : json['allergens'] as Null,
       weight: json['weight'] as int,
       price: json['price'] as int,

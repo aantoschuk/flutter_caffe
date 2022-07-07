@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:caffe/models/auth.dart';
+import 'package:caffe/models/user.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:caffe/models/models.dart';
@@ -12,7 +14,6 @@ class ApiRepository {
   Future<List<Product>> fetchProducts() async {
     final response = await _provider.makeRequest(
         RequestTypes.get, GetRequest.getProducts, RequestType.get);
-
     return compute(parseProducts, response.body);
   }
 
@@ -21,6 +22,20 @@ class ApiRepository {
         RequestTypes.post, PostRequest.login, RequestType.post,
         payload: payload);
     return compute(parseAuth, response.body);
+  }
+
+  Future<Auth> register(payload) async {
+    final response = await _provider.makeRequest(
+        RequestTypes.post, PostRequest.register, RequestType.post,
+        payload: payload);
+    return compute(parseAuth, response.body);
+  }
+
+  Future<User> update(String email, payload, token) async {
+    final response = await _provider.makeRequest(
+        RequestTypes.patch, PatchRequest.updateUser(email), RequestType.patch,
+        payload: payload, token: token);
+    return compute(parseUser, response.body);
   }
 }
 
@@ -32,5 +47,12 @@ List<Product> parseProducts(String responseBody) {
 
 Auth parseAuth(String responseBody) {
   final parsed = jsonDecode(responseBody);
+
   return Auth.fromJson(parsed);
+}
+
+User parseUser(String responseBody) {
+  final parsed = jsonDecode(responseBody);
+
+  return User.fromJson(parsed);
 }

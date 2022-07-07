@@ -17,7 +17,7 @@ class Routes {
       '/login': (context) => const LoginPage(),
       '/register': (context) => const RegisterPage(),
       '/orders': (context) {
-        final state = BlocProvider.of<AuthCubit>(context).state;
+        final state = BlocProvider?.of<AuthCubit>(context).state;
         if (state.token == '') {
           return const LoginPage();
         }
