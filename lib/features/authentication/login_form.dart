@@ -26,6 +26,9 @@ class LoginFormState extends State<LoginForm> {
   TextEditingController passwordEditingController = TextEditingController();
 
   void onSkiptap() => Navigator.pushReplacementNamed(context, Routes.initial);
+  void onRegisterTap() =>
+      Navigator.pushReplacementNamed(context, Routes.register);
+
   void submit() async {
     if (_formKey.currentState!.validate() && _isError == false) {
       ScaffoldMessenger.of(context)
@@ -45,7 +48,8 @@ class LoginFormState extends State<LoginForm> {
           onSkiptap();
         }
       } catch (e) {
-        log(e.toString());
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
       }
     }
   }
@@ -112,7 +116,7 @@ class LoginFormState extends State<LoginForm> {
               children: [
                 const Text('Forgot Password?'),
                 GestureDetector(
-                  onTap: null,
+                  onTap: onRegisterTap,
                   child: const Text('Sign up'),
                 )
               ],
@@ -151,76 +155,3 @@ class LoginFormState extends State<LoginForm> {
         ));
   }
 }
-
-// class LoginFormState extends State<LoginForm> {
-//   final _formKey = GlobalKey<FormState>();
-//   final Widget eyeIcon = SvgPicture.asset(CustomIcons.eye);
-
-//   bool obscure = true;
-//   void onSkiptap() => Navigator.pushReplacementNamed(context, Routes.initial);
-
-//   void submit() {
-//     if (_formKey.currentState!.validate()) {
-//       ScaffoldMessenger.of(context)
-//           .showSnackBar(const SnackBar(content: Text('Processing Data')));
-//     }
-//   }
-
-//   void _toogle() {
-//     setState(() {
-//       obscure = !obscure;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Expanded(
-//       child: Form(
-//           key: _formKey,
-//           child: Column(
-//             children: [
-//               // const Input(hint: 'Email'),
-//               // Row(
-//               //   children: [
-//               //     const Input(hint: 'Password'),
-//               //     GestureDetector(
-//               //       onTap: _toogle,
-//               //       child: SvgPicture.asset(CustomIcons.eye),
-//               //     ),
-//               //   ],
-//               // ),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   const Text('Forgot Password?'),
-//                   GestureDetector(
-//                     onTap: null,
-//                     child: const Text('Sign up'),
-//                   )
-//                 ],
-//               ),
-//               Expanded(
-//                 child: Column(
-//                   mainAxisAlignment: MainAxisAlignment.end,
-//                   children: [
-//                     SizedBox(
-//                       width: double.infinity,
-//                       child: Button(onTap: submit, text: 'LOG IN'),
-//                     ),
-//                     SizedBox(
-//                       width: double.infinity,
-//                       child: Button(
-//                         onTap: onSkiptap,
-//                         text: 'SKIP',
-//                         foregroundColor: Colors.black,
-//                         backgroundColor: Colors.white,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               )
-//             ],
-//           )),
-//     );
-//   }
-// }

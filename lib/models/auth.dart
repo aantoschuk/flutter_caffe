@@ -6,6 +6,8 @@ class Auth {
   });
 
   factory Auth.fromJson(Map<String, dynamic> json) {
-    return Auth(accessToken: json['access_token'] as String);
+    return Auth(
+      accessToken: json['access_token'] as String,
+    );
   }
 }
