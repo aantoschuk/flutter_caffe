@@ -1,11 +1,11 @@
+import 'package:caffe/cubit/auth/auth_cubit.dart';
+import 'package:caffe/utils/service/secure_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:caffe/widgets/form/custom_text_field.dart';
 import 'package:caffe/features/authentication/register/form_steps.dart';
-
-import 'package:caffe/cubit/auth/auth_cubit.dart';
 
 import 'package:caffe/utils/helpers/events.dart';
 import 'package:caffe/utils/helpers/helpers.dart';
@@ -51,8 +51,11 @@ class RegisterPageState extends State<RegisterPage> {
         setState(() {
           ++currentIndex;
         });
+        // STORE TOKEN HERE
+        SecureStorage.saveToken(response.accessToken);
         BlocProvider.of<AuthCubit>(context).setToken(response.accessToken);
       } catch (e) {
+        if (!mounted) return;
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(e.toString())));
       }
@@ -68,7 +71,10 @@ class RegisterPageState extends State<RegisterPage> {
           'phone': phoneEditingControlller.text,
           'full_name': nameEditingController.text,
         };
-        final authState = BlocProvider.of<AuthCubit>(context).state;
+
+        final authState =
+            BlocProvider.of<AuthCubit>(context).state as AuthLoaded;
+
         apiRepository.update(
             emailEditingController.text, payload, authState.token);
         navigateToMain(context);

@@ -41,7 +41,7 @@ class Input extends StatelessWidget {
             ),
           ),
         ),
-        validator: (value) => validation!(value),
+        validator: (value) => validation!(value?.trim()),
       ),
     );
   }

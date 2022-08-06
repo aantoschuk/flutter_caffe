@@ -4,11 +4,13 @@ class Button extends StatelessWidget {
   final Function()? onTap;
   final Color backgroundColor;
   final Color foregroundColor;
+  final bool isDisabled;
   final String text;
   const Button({
     Key? key,
     required this.onTap,
     required this.text,
+    this.isDisabled = false,
     this.backgroundColor = Colors.black,
     this.foregroundColor = Colors.white,
   }) : super(key: key);
@@ -25,7 +27,9 @@ class Button extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: MaterialStateProperty.all(backgroundColor),
+        backgroundColor: !isDisabled
+            ? MaterialStateProperty.all(backgroundColor)
+            : MaterialStateProperty.all(Colors.amber),
         foregroundColor: MaterialStateProperty.all(foregroundColor),
       ),
       child: Text(text),
