@@ -7,17 +7,13 @@ abstract class AuthState extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthInitial extends AuthState {
-  final String token = '';
+class AuthInitial extends AuthState {}
 
-  @override
-  List<Object> get props => [token];
-}
-
-class TokenLoaded extends AuthState {
+class AuthLoaded extends AuthState {
   final String token;
-
-  const TokenLoaded(this.token);
+  const AuthLoaded({
+    this.token = '',
+  });
 
   @override
   List<Object> get props => [token];

@@ -1,7 +1,8 @@
+import 'package:caffe/cubit/auth/auth_cubit.dart';
+import 'package:caffe/features/cart/cart.dart';
+import 'package:caffe/utils/service/secure_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:caffe/cubit/auth/auth_cubit.dart';
 
 import '../../features/features.dart';
 
@@ -10,18 +11,19 @@ class Routes {
   static const String login = '/login';
   static const String orders = '/orders';
   static const String register = '/register';
-
   static Map<String, WidgetBuilder> getRoutes() {
     return {
       '/': (context) => const MainPage(),
       '/login': (context) => const LoginPage(),
       '/register': (context) => const RegisterPage(),
       '/orders': (context) {
-        final state = BlocProvider?.of<AuthCubit>(context).state;
-        if (state.token == '') {
+        final authState =
+            BlocProvider.of<AuthCubit>(context).state as AuthLoaded;
+        if (authState.token.isEmpty) {
           return const LoginPage();
         }
-        BlocProvider.of<AuthCubit>(context).resetToken();
+        SecureStorage.removeToken();
+        BlocProvider.of<AuthCubit>(context).setToken('');
         return const BadPage();
       }
     };

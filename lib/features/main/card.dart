@@ -1,4 +1,9 @@
+import 'dart:developer';
+import 'package:caffe/cubit/cart/cart_cubit.dart';
+import 'package:caffe/utils/helpers/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 import 'package:caffe/models/models.dart';
 
@@ -7,9 +12,18 @@ import 'package:caffe/features/item_detail/product_detail.dart';
 
 import 'package:caffe/theme/fonts.dart';
 
+// ignore: must_be_immutable
 class ItemCard extends StatelessWidget {
   final Product product;
-  const ItemCard({Key? key, required this.product}) : super(key: key);
+  late Map<String, dynamic>? decodedToken;
+  final Function updateCartAmount;
+
+  ItemCard(
+      {Key? key,
+      this.decodedToken,
+      required this.product,
+      required this.updateCartAmount})
+      : super(key: key);
 
   void openDetail(context, Product item) {
     showModalBottomSheet(
@@ -21,6 +35,15 @@ class ItemCard extends StatelessWidget {
         );
       },
     );
+  }
+
+  Map<String, dynamic> decode(token) {
+    return Jwt.parseJwt(token);
+  }
+
+  void addToCart(context, String? role) {
+    BlocProvider.of<CartCubit>(context).addToCart(product);
+    updateCartAmount();
   }
 
   @override
@@ -69,13 +92,13 @@ class ItemCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: SizedBox(
                   height: 36,
                   width: 134,
                   child: Button(
-                    onTap: null,
+                    onTap: () => addToCart(context, decodedToken?['role']),
                     text: 'TO CART',
                   ),
                 ),

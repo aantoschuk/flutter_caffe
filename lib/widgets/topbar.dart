@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:caffe/utils/service/routes.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 
@@ -5,15 +8,42 @@ import 'package:caffe/theme/colors.dart';
 import 'package:caffe/theme/icons.dart';
 
 class Topbar extends StatelessWidget with PreferredSizeWidget {
-  const Topbar({Key? key}) : super(key: key);
+  final String appTitle;
+  final int cartAmount;
+  final Function(String) updateAppBarTitle;
+  final Function(String) changeCurrentPage;
+
+  const Topbar({
+    Key? key,
+    this.appTitle = '',
+    required this.cartAmount,
+    required this.changeCurrentPage,
+    required this.updateAppBarTitle,
+  }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
+  void toCartPage(BuildContext context) {
+    changeCurrentPage('cart');
+  }
+
+  void changePage() {
+    log(appTitle);
+    updateAppBarTitle('Main');
+    changeCurrentPage('main');
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('Main'),
+      leading: appTitle != 'Main'
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => changePage(),
+            )
+          : null,
+      title: Text(appTitle),
       backgroundColor: Colors.black,
       actions: [
         IconButton(
@@ -22,29 +52,35 @@ class Topbar extends StatelessWidget with PreferredSizeWidget {
         ),
         Stack(
           children: [
-            IconButton(
-              onPressed: null,
-              icon: SvgPicture.asset(CustomIcons.cart),
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: IconButton(
+                onPressed: () => toCartPage(context),
+                icon: SvgPicture.asset(CustomIcons.cart),
+              ),
             ),
-            Positioned(
-                top: 5,
-                right: 5,
-                child: Center(
-                  child: Container(
-                    height: 19,
-                    width: 19,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: CustomColors.hanPurple,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        '5',
-                        style: TextStyle(fontSize: 12),
+            cartAmount > 0
+                ? Positioned(
+                    top: 10,
+                    right: 5,
+                    child: Center(
+                      child: Container(
+                        height: 19,
+                        width: 19,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: CustomColors.hanPurple,
+                        ),
+                        child: Center(
+                          child: Text(
+                            cartAmount.toString(),
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ))
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
         IconButton(onPressed: null, icon: SvgPicture.asset(CustomIcons.search))

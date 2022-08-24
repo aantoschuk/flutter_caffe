@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:caffe/models/auth.dart';
 import 'package:caffe/models/user.dart';
 import 'package:flutter/foundation.dart';
@@ -46,9 +45,13 @@ List<Product> parseProducts(String responseBody) {
 }
 
 Auth parseAuth(String responseBody) {
-  final parsed = jsonDecode(responseBody);
-
-  return Auth.fromJson(parsed);
+  try {
+    final parsed = jsonDecode(responseBody);
+    return Auth.fromJson(parsed);
+  } catch (e) {
+    final badRequest = jsonDecode(responseBody);
+    throw Exception(badRequest['message']);
+  }
 }
 
 User parseUser(String responseBody) {

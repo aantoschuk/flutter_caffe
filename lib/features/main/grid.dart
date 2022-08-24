@@ -7,8 +7,11 @@ class ItemGrid extends StatelessWidget {
   const ItemGrid({
     super.key,
     required this.items,
+    required this.updateCartAmount,
   });
+
   final List<Product> items;
+  final Function updateCartAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,8 @@ class ItemGrid extends StatelessWidget {
       ),
       itemCount: items.length,
       itemBuilder: (context, index) {
-        return ItemCard(product: items[index]);
+        return ItemCard(
+            product: items[index], updateCartAmount: updateCartAmount);
       },
     );
   }
