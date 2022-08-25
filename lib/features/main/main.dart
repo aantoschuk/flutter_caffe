@@ -72,12 +72,23 @@ class ProductsState extends State<Products> {
           );
         }
         if (state is ItemsLoaded) {
-          return getPages(
-                  items: state.filteredItems,
-                  updateCartAmount: updateCartAmount,
-                  page: currentPage,
-                  updateAppBarTitle: updateAppBarTitle) ??
-              const Expanded(child: Text('No such page'));
+          return Column(
+            children: [
+              Expanded(
+                child: getPages(
+                        items: state.filteredItems,
+                        updateCartAmount: updateCartAmount,
+                        page: currentPage,
+                        updateAppBarTitle: updateAppBarTitle) ??
+                    const Expanded(
+                      child: Text('No such page'),
+                    ),
+              ),
+              BottomNavigation(
+                  updateAppBarTitle: updateAppBarTitle,
+                  changeCurrentPage: changeCurrentPage),
+            ],
+          );
         } else {
           return const Center(
             child: Text('Something went wrong'),

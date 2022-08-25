@@ -36,6 +36,13 @@ class ApiRepository {
         payload: payload, token: token);
     return compute(parseUser, response.body);
   }
+
+  Future<User> fetchUser(String email, String token) async {
+    final response = await _provider.makeRequest(
+        RequestTypes.get, GetRequest.getUser(email), RequestType.get,
+        token: token);
+    return compute(parseUser, response.body);
+  }
 }
 
 List<Product> parseProducts(String responseBody) {

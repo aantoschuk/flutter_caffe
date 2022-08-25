@@ -1,5 +1,6 @@
 class GetRequest {
   static const getProducts = 'products';
+  static String getUser(String email) => 'user/$email';
 }
 
 class PostRequest {
